@@ -1,0 +1,20 @@
+# Cloudflare Worker that stores the dashboard PNG and serves it to the Kindle.
+# Setup steps: see README, section "Cloudflare Worker".
+#
+# Deploy from this folder:   npx wrangler deploy
+# Deploying with the same name updates the existing Worker in place.
+
+name = "kindle-dashboard"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+# KV namespace that holds the image (the code uses env.IMAGES).
+# Create it once with:   npx wrangler kv namespace create IMAGES
+# then paste the printed id here. The id is not a secret, but it is account-specific.
+[[kv_namespaces]]
+binding = "IMAGES"
+id = "<your-kv-namespace-id>"
+
+# Secrets are NOT stored in this file. Set them with:
+#   npx wrangler secret put UPLOAD_TOKEN
+#   npx wrangler secret put READ_TOKEN
