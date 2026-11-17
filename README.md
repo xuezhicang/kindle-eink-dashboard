@@ -19,7 +19,7 @@ cron (*/10) → run.sh
 | File | What it does |
 |---|---|
 | `run.sh` | Runs everything in order and uploads. `--no-upload` draws only. |
-| `read-weather.py` | Current weather + 4-day forecast from Open-Meteo (free, no key). |
+| `read-weather.py` | Current weather + 4-day forecast from Open-Meteo (free, no key). The city name is looked up from the coordinates with OpenStreetMap Nominatim, once, and cached in `data/place.json` (looked up again only if the coordinates change). |
 | `read-codex.py` | Codex 5-hour / weekly limits via the local Codex login (`~/.codex`). |
 | `read-claude.py` | Claude 5-hour / weekly limits via the local Claude Code login. Sends no chat message. |
 | `read-aerisiq.py` | AerisIQ map status: OK / ERROR / DOWN (LATE is decided when drawing). |
@@ -30,7 +30,7 @@ cron (*/10) → run.sh
 | `worker/worker.js` | The Cloudflare Worker that stores the PNG and serves it to the Kindle (same code as deployed). |
 | `worker/wrangler.toml` | Deploy config for the Worker (KV id is a placeholder, no secrets). |
 | `.env.example` | Template for `.env`. |
-| `.env` | Upload URL + token and weather location. Private (chmod 600), never committed. |
+| `.env` | Upload URL + token and weather coordinates. Private (chmod 600), never committed. |
 | `data/`, `logs/`, `dashboard.png` | Generated at run time, not committed. |
 
 ## Setup
