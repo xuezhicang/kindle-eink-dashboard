@@ -220,14 +220,18 @@ def draw_weather(d, y, data, now):
     text(d, (M + 108, y + 18), temp, 72, bold=True)
     xr = max(345, M + 108 + d.textlength(temp, font=font(72, True)) + 18)
     s, size = fit(d, label, W - M - xr, 30, bold=True)
-    text(d, (xr, y + 22), s, size, bold=True)
-    text(d, (xr, y + 62), f"feels {deg(c['feels'])}", 22)
-    wind = f"wind {c['wind']:.0f} km/h {compass(c['windDir'])}" if c.get("wind") is not None else ""
-    text(d, (xr, y + 92), wind, 22)
+    text(d, (xr, y + 18), s, size, bold=True)
+    # Everything in this column is "now"; the Today line below is the whole day.
+    now_lines = [f"feels {deg(c['feels'])}"]
+    if c.get("wind") is not None:
+        now_lines.append(f"wind {c['wind']:.0f} km/h {compass(c['windDir'])}")
+    if c.get("humidity") is not None:
+        now_lines.append(f"humidity {c['humidity']}%")
+    for i, line in enumerate(now_lines):
+        text(d, (xr, y + 54 + i * 26), line, 22)
 
     rain = "–" if today["rain"] is None else f"{today['rain']}%"
-    humid = "" if c.get("humidity") is None else f"   humidity {c['humidity']}%"
-    text(d, (M, y + 132), f"Today  H {deg(today['max'])}  L {deg(today['min'])}   rain {rain}{humid}", 22)
+    text(d, (M, y + 138), f"Today  H {deg(today['max'])}  L {deg(today['min'])}   rain {rain}", 22)
 
 
 def draw_forecast(d, y, data, now):
