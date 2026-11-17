@@ -231,7 +231,14 @@ def draw_weather(d, y, data, now):
         text(d, (xr, y + 54 + i * 26), line, 22)
 
     rain = "–" if today["rain"] is None else f"{today['rain']}%"
-    text(d, (M, y + 138), f"Today  H {deg(today['max'])}  L {deg(today['min'])}   rain {rain}", 22)
+    today_line = f"Today  H {deg(today['max'])}  L {deg(today['min'])}   rain {rain}"
+    text(d, (M, y + 138), today_line, 22)
+
+    place = weather.get("place")
+    if place:  # where this weather is for, right side of the Today line
+        x_free = M + d.textlength(today_line, font=font(22)) + 20
+        s, size = fit(d, place, W - M - x_free, 20, bold=True)
+        text(d, (W - M, y + 160), s, size, bold=True, anchor="rs")
 
 
 def draw_forecast(d, y, data, now):

@@ -54,7 +54,7 @@ def fetch(previous):
     ]
     if len(days) < FORECAST_DAYS + 1:
         raise RuntimeError(f"only {len(days)} forecast days in the response")
-    return {"weather": {"current": current, "days": days}}
+    return {"weather": {"place": env.get("WEATHER_PLACE", ""), "current": current, "days": days}}
 
 
 def describe(payload):
