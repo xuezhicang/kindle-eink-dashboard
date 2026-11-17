@@ -1,0 +1,13 @@
+# secrets
+.env
+
+# local conda environment (rebuild from environment.yml)
+env/
+
+# generated output
+data/
+logs/
+dashboard.png
+
+# python cache
+__pycache__/

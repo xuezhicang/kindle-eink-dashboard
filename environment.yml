@@ -1,0 +1,19 @@
+# Conda environment for the Kindle AI usage dashboard.
+#
+# The environment lives inside this folder (./env), so the project is self-contained.
+#
+#   Create:  mamba env create -p ./env -f environment.yml
+#   Update:  mamba env update -p ./env -f environment.yml --prune
+#   Use:     ./env/bin/python generate.py      (no "conda activate" needed, works from cron)
+#
+# There is deliberately no "name:" field, so the env can only be created with -p
+# and never ends up in the shared envs folder by mistake.
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - python=3.12
+  - pillow>=11,<13      # draws the PNG (same range as the old GitHub Action)
+  - python-tzdata       # time zone data for America/Chicago, so we don't depend on the OS copy
